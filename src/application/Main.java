@@ -16,6 +16,7 @@ public class Main {
 			Match match = new Match();
 			
 			while (match.getWin()==false && match.getLose()==false) {
+				UI.clearScreen();
 				gameplayLoop(match, sc);
 				match.checkWin();
 				match.checkLoss();
@@ -28,9 +29,9 @@ public class Main {
 			
 			//Mostra mensagem de fim de jogo
 			if (match.getWin()) {
-				UI.youWin(match.getTurn());
+				UI.youWin(match.getTurn(), match.getSpaces());
 			} else if (match.getLose()) {
-				UI.youLose();
+				UI.youLose(match.getSpaces());
 			}
 			
 			playGame = playAgain(sc); //Verifica se o usuário deseja jogar novamente
@@ -53,9 +54,10 @@ public class Main {
 			coluna--;
 			
 			if (linha>=0 && linha<=2 && coluna>=0 && coluna<=2) {
-				match.placeMark(linha, coluna);
+				match.placeMark(linha, coluna, match, sc);
 				
 			} else {
+				UI.error("Por favor digite apenas \nnúmeros equivalentes à casa \ndesejada");
 				gameplayLoop(match, sc);
 			}
 			
@@ -79,7 +81,7 @@ public class Main {
 			playGame = false;
 			
 		} else {
-			UI.errorPlayAgain();
+			UI.error("Por favor digite uma das\n2 opções");
 			playGame=playAgain(sc);
 		}
 		

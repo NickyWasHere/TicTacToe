@@ -1,6 +1,9 @@
 package game;
 
+import java.util.Scanner;
+
 import application.Main;
+import application.UI;
 
 public class Match {
 
@@ -36,23 +39,15 @@ public class Match {
 		turn = (turn==Mark.X) ? Mark.O : Mark.X;
 	}
 	
-	public void placeMark(int linha, int coluna) {
+	public void placeMark(int linha, int coluna, Match match, Scanner sc) {
 		
-		if (canPlace(linha, coluna)) {
-			spaces[linha][coluna] = turn;
-		}
-	}
-	
-	//Método auxiliar para verificar se o espaço já foi usado
-	public boolean canPlace(int linha, int coluna) {
 		if (spaces[linha][coluna]==null) { //Espaço vazio
-			return true;
+			spaces[linha][coluna] = turn;
 		} else {
-			//Muda o turno pois o turno vai ser mudado denovo depois, voltando para o jogador original
-			switchTurn(); 
-			return false;
+			UI.error("Espaço já ocupado");
+			Main.gameplayLoop(match, sc);
+
 		}
-			
 	}
 	
 	//Não gostei da implementação mas deixei assim
